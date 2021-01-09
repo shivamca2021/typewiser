@@ -2,10 +2,10 @@
 ##############################################################################
 {
     'name' : 'Typewiser Courses Enhancement',
-    'category' : 'Base',
-    'description' : """Typewiser Courses Enhancement
-
-""",
+    'version' : '13.0',
+    'summary': 'Typewiser Courses Enhancement',
+    'category': 'base',
+    'author': 'Shiva Singh',
     'depends' : ['website_slides', 'base', 'contacts'],
     'data': [
         'security/ir.model.access.csv',
