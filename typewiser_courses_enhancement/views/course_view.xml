@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Cource View Enhancement -->
+    <record id="view_slide_channel_form_inherit" model="ir.ui.view">
+        <field name="name">slide.channel.form.inherit</field>
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='options']/group/group/field[@name='channel_type']" position="after">
+                <field name="instructor_id"/>
+                <field name="course_room_id"/>
+            </xpath>
+            <xpath expr="//page[@name='options']/group/group/field[@name='user_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//page[@name='content']" position="replace">
+                <page name="content" string="Lessons">
+                    <field name="slide_ids" colspan="4" nolabel="1" widget="slide_category_one2many" mode="tree,kanban" context="{'default_channel_id': active_id}">
+                         <tree decoration-bf="is_category" editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="slide_type" attrs="{'invisible': [('slide_type', '=', 'category')]}"/>
+                            <field name="completion_time" attrs="{'invisible': [('slide_type', '=', 'category')]}" string="Duration" widget="float_time"/>
+                            <field name="total_views" attrs="{'invisible': [('slide_type', '=', 'category')]}"/>
+                            <field name="is_category" invisible="1"/>
+                            <control>
+                                <create name="add_slide_section" string="Add Section" context="{'default_is_category': True}"/>
+                                <create name="add_slide_lesson" string="Add Content"/>
+                            </control>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

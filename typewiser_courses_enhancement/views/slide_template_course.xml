@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="website_slides.course_sidebar" name="Course Sidebar (infos, CTA)">
+    <!-- Training-only: Channel sidebar (aka general information + CTAs) -->
+        <div class="o_wslides_course_sidebar bg-white px-3 py-2 py-md-3 mb-3 mb-md-5">
+
+            <div class="o_wslides_sidebar_top d-flex justify-content-between">
+                <div class="o_wslides_js_course_join flex-grow-1">
+                    <a t-if="not channel.is_member and channel.enroll == 'public'" role="button"
+                        class="btn btn-primary btn-block o_wslides_js_course_join_link"
+                        title="Start Course" aria-label="Start Course Channel"
+                        t-att-href="'#'"
+                        t-att-data-channel-id="channel.id">
+                        <span class="cta-title text_small_caps">
+                            <t t-if="channel.channel_type == 'documentation'">Start Course</t>
+                            <t t-else="">Join Course</t>
+                        </span>
+                    </a>
+                    <div t-if="not channel.is_member and channel.enroll == 'invite'" class="text-center">
+                        <div class="alert my-0 bg-100 p-2">Private Course</div>
+                        <div t-if="channel.enroll_msg" t-field="channel.enroll_msg"/>
+                        <small t-if="not channel.enroll_msg">Contact website administrator.</small>
+                    </div>
+                    <button t-if="channel.is_member"
+                            class="d-flex align-items-center alert my-0 px-2 px-xl-3 bg-100 w-100 o_wslides_js_channel_unsubscribe"
+                            t-att-data-channel-id="channel.id"
+                            t-att-data-is-follower="channel.message_is_follower"
+                            t-att-data-enroll="channel.enroll">
+                        <t t-call="website_slides.slides_misc_user_image">
+                            <t t-set="img_class" t-value="'rounded-circle mr-1'"/>
+                            <t t-set="img_style" t-value="'width: 1.4em; height: 1.4em; object-fit: cover;'"/>
+                        </t>
+                        <h6 class="d-flex flex-grow-1 my-0">You're enrolled</h6>
+                        <i class="fa fa-check"/>
+                    </button>
+                </div>
+                <button class="btn btn-sm d-md-none bg-white ml-1 border" type="button" data-toggle="collapse" data-target="#o_wslides_sidebar_collapse" aria-expanded="false" aria-controls="o_wslides_sidebar_collapse">More info</button>
+            </div>
+
+            <div id="o_wslides_sidebar_collapse" class="collapse d-md-block">
+                <table class="table table-sm mt-3">
+                    <tr>
+                        <th class="border-top-0">Last Update</th>
+                        <td class="border-top-0"><t t-esc="channel.slide_last_update" t-options="{'widget': 'date'}"/></td>
+                    </tr>
+                    <tr t-if="channel.total_time">
+                        <th class="border-top-0">Completion Time</th>
+                        <td class="border-top-0"><t class="font-weight-bold" t-esc="channel.total_time" t-options="{'widget': 'duration', 'unit': 'hour', 'round': 'minute'}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Members</th>
+                        <td><t t-esc="channel.members_count"/></td>
+                    </tr>
+                    <tr>
+                        <th>Course Room</th>
+                        <td><t t-esc="channel.course_room_id.room_name"/></td>
+                    </tr>
+                    <tr>
+                        <th>Instructor</th>
+                        <td><t t-esc="channel.instructor_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><t t-esc="channel.description"/></td>
+                    </tr>
+                </table>
+
+                <div class="mt-3">
+                    <button role="button" class="btn btn-link btn-block" title="Share Channel"
+                        aria-label="Share Channel"
+                        data-toggle="modal" data-target="#slideChannelShareModal">
+                        <i class="fa fa-share-square fa-fw"/> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+</odoo>

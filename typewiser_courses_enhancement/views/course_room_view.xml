@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="course_room_form_view">
+            <field name="name">course.room.form.view</field>
+            <field name="model">course.rooms</field>
+            <field name="arch" type="xml">
+                <form string="Course Room">
+                    <sheet>
+                        <group>
+                            <field name="room_code"/>
+                            <field name="room_name"/>
+                            <field name="max_capacity"/>
+                        </group>
+                        <notebook>
+                            <page name="course" string="Course">
+                                <field name="course_ids"/>
+                            </page>
+                            <page name="lessons" string="Lessons">
+                                <field name="slide_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="course_room_tree_view" model="ir.ui.view">
+            <field name="name">course.room.view</field>
+            <field name="model">course.rooms</field>
+            <field name="arch" type="xml">
+                <tree string="Course Room">
+                    <field name="room_code"/>
+                    <field name="room_name"/>
+                    <field name="max_capacity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_course_room" model="ir.actions.act_window">
+            <field name="name">Course Room</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">course.rooms</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        
+        <menuitem 
+                id="menu_course_room"  
+                name="Course Room"
+                action="action_course_room"
+                parent="website_slides.website_slides_menu_configuration"
+                sequence="1" />
+    </data>
+</odoo>
